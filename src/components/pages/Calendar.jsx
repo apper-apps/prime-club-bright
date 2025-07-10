@@ -31,14 +31,28 @@ const Calendar = () => {
     loadDeals();
   }, []);
 
-  const handleUpdateDeal = async (dealId, updates) => {
+const handleUpdateDeal = async (dealId, updates) => {
     try {
+      // Optimistically update the UI first
+      setDeals(prevDeals => 
+        prevDeals.map(deal => 
+          deal.Id === dealId ? { ...deal, ...updates } : deal
+        )
+      );
+      
+      // Then update the backend
       const updatedDeal = await dealsService.update(dealId, updates);
-      setDeals(deals.map(deal => 
-        deal.Id === dealId ? updatedDeal : deal
-      ));
+      
+      // Sync with the actual response
+      setDeals(prevDeals => 
+        prevDeals.map(deal => 
+          deal.Id === dealId ? updatedDeal : deal
+        )
+      );
     } catch (err) {
+      // Revert the optimistic update on error
       toast.error("Failed to update deal timeline");
+      loadDeals(); // Reload to get correct state
     }
   };
 

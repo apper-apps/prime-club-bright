@@ -7,12 +7,15 @@ import { toast } from "react-toastify";
 const TimelineCalendar = ({ deals, onUpdateDeal }) => {
   const [draggedDeal, setDraggedDeal] = useState(null);
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
+  const [resizingDeal, setResizingDeal] = useState(null);
+  const [resizeDirection, setResizeDirection] = useState(null);
+  const [initialMousePos, setInitialMousePos] = useState({ x: 0, y: 0 });
+  const [initialDealData, setInitialDealData] = useState(null);
 
   const months = [
     "Jan", "Feb", "Mar", "Apr", "May", "Jun",
     "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
   ];
-
   const colors = [
     "from-indigo-500 to-purple-500",
     "from-emerald-500 to-teal-500",
@@ -22,7 +25,8 @@ const TimelineCalendar = ({ deals, onUpdateDeal }) => {
     "from-violet-500 to-purple-500",
   ];
 
-  const handleDragStart = (e, deal) => {
+const handleDragStart = (e, deal) => {
+    if (resizingDeal) return; // Prevent drag during resize
     setDraggedDeal(deal);
     const rect = e.currentTarget.getBoundingClientRect();
     setDragOffset({
@@ -43,18 +47,75 @@ const TimelineCalendar = ({ deals, onUpdateDeal }) => {
     const newStartMonth = targetMonth;
     const newEndMonth = Math.min(newStartMonth + duration, 12);
 
-    onUpdateDeal(draggedDeal.Id, {
-      startMonth: newStartMonth,
-      endMonth: newEndMonth
-    });
-
-    toast.success(`Deal timeline updated!`);
+    // Validate the new position
+    if (newStartMonth >= 1 && newEndMonth <= 12) {
+      onUpdateDeal(draggedDeal.Id, {
+        startMonth: newStartMonth,
+        endMonth: newEndMonth
+      });
+      toast.success(`Deal timeline updated!`);
+    } else {
+      toast.error("Invalid timeline position");
+    }
+    
     setDraggedDeal(null);
   };
 
   const handleResizeStart = (e, deal, direction) => {
     e.stopPropagation();
-    // Implement resize logic here
+    e.preventDefault();
+    
+    setResizingDeal(deal);
+    setResizeDirection(direction);
+    setInitialMousePos({ x: e.clientX, y: e.clientY });
+    setInitialDealData({ 
+      startMonth: deal.startMonth, 
+      endMonth: deal.endMonth 
+    });
+
+    // Add global mouse event listeners
+    document.addEventListener('mousemove', handleResizeMove);
+    document.addEventListener('mouseup', handleResizeEnd);
+  };
+
+  const handleResizeMove = (e) => {
+    if (!resizingDeal || !initialDealData) return;
+
+    const deltaX = e.clientX - initialMousePos.x;
+    const monthWidth = window.innerWidth / 12; // Approximate month width
+    const monthsDelta = Math.round(deltaX / monthWidth);
+
+    let newStartMonth = initialDealData.startMonth;
+    let newEndMonth = initialDealData.endMonth;
+
+    if (resizeDirection === 'left') {
+      newStartMonth = Math.max(1, Math.min(initialDealData.startMonth + monthsDelta, initialDealData.endMonth - 1));
+    } else if (resizeDirection === 'right') {
+      newEndMonth = Math.min(12, Math.max(initialDealData.endMonth + monthsDelta, initialDealData.startMonth + 1));
+    }
+
+    // Only update if the values have changed
+    if (newStartMonth !== resizingDeal.startMonth || newEndMonth !== resizingDeal.endMonth) {
+      onUpdateDeal(resizingDeal.Id, {
+        startMonth: newStartMonth,
+        endMonth: newEndMonth
+      });
+    }
+  };
+
+  const handleResizeEnd = () => {
+    if (resizingDeal) {
+      toast.success(`Deal duration updated!`);
+    }
+    
+    setResizingDeal(null);
+    setResizeDirection(null);
+    setInitialMousePos({ x: 0, y: 0 });
+    setInitialDealData(null);
+
+    // Remove global mouse event listeners
+    document.removeEventListener('mousemove', handleResizeMove);
+    document.removeEventListener('mouseup', handleResizeEnd);
   };
 
   const getBarWidth = (startMonth, endMonth) => {
@@ -114,29 +175,37 @@ const TimelineCalendar = ({ deals, onUpdateDeal }) => {
             </div>
 
             {/* Timeline Bar */}
-            <div
-              className="absolute top-2 right-4 bottom-2 cursor-move group"
+<div
+              className={`absolute top-2 right-4 bottom-2 group transition-all duration-200 ${
+                draggedDeal?.Id === deal.Id ? 'opacity-50 scale-105' : 'cursor-move'
+              } ${resizingDeal?.Id === deal.Id ? 'cursor-ew-resize' : ''}`}
               style={{
                 left: `calc(${getBarLeft(deal.startMonth)} + 16rem)`,
                 width: `calc(${getBarWidth(deal.startMonth, deal.endMonth)} - 16rem)`,
                 minWidth: "2rem"
               }}
-              draggable
+              draggable={!resizingDeal}
               onDragStart={(e) => handleDragStart(e, deal)}
             >
-              <div className={`h-full bg-gradient-to-r ${colors[index % colors.length]} rounded-md shadow-lg group-hover:shadow-xl transition-shadow opacity-80 group-hover:opacity-100`}>
+              <div className={`h-full bg-gradient-to-r ${colors[index % colors.length]} rounded-md shadow-lg group-hover:shadow-xl transition-all duration-200 ${
+                draggedDeal?.Id === deal.Id ? 'opacity-70' : 'opacity-80 group-hover:opacity-100'
+              } ${resizingDeal?.Id === deal.Id ? 'ring-2 ring-white/30' : ''}`}>
                 {/* Resize Handles */}
                 <div
-                  className="absolute left-0 top-0 bottom-0 w-2 cursor-ew-resize bg-white/20 rounded-l-md opacity-0 group-hover:opacity-100 transition-opacity"
+                  className={`absolute left-0 top-0 bottom-0 w-2 cursor-ew-resize bg-white/20 rounded-l-md transition-all duration-200 ${
+                    resizingDeal?.Id === deal.Id && resizeDirection === 'left' ? 'opacity-100 bg-white/40' : 'opacity-0 group-hover:opacity-100'
+                  }`}
                   onMouseDown={(e) => handleResizeStart(e, deal, "left")}
                 />
                 <div
-                  className="absolute right-0 top-0 bottom-0 w-2 cursor-ew-resize bg-white/20 rounded-r-md opacity-0 group-hover:opacity-100 transition-opacity"
+                  className={`absolute right-0 top-0 bottom-0 w-2 cursor-ew-resize bg-white/20 rounded-r-md transition-all duration-200 ${
+                    resizingDeal?.Id === deal.Id && resizeDirection === 'right' ? 'opacity-100 bg-white/40' : 'opacity-0 group-hover:opacity-100'
+                  }`}
                   onMouseDown={(e) => handleResizeStart(e, deal, "right")}
                 />
                 
                 {/* Timeline Info */}
-                <div className="absolute inset-0 flex items-center justify-center text-white text-xs font-medium">
+                <div className="absolute inset-0 flex items-center justify-center text-white text-xs font-medium pointer-events-none">
                   {months[deal.startMonth - 1]} - {months[deal.endMonth - 1]}
                 </div>
               </div>
@@ -146,16 +215,22 @@ const TimelineCalendar = ({ deals, onUpdateDeal }) => {
       </div>
 
       {/* Legend */}
-      <Card className="p-4">
+<Card className="p-4">
         <div className="flex items-center gap-4 text-sm text-slate-400">
           <div className="flex items-center gap-2">
             <ApperIcon name="Move" size={16} />
-            <span>Drag to move timeline</span>
+            <span>Drag timeline bars to move dates</span>
           </div>
           <div className="flex items-center gap-2">
             <ApperIcon name="ArrowLeftRight" size={16} />
-            <span>Resize handles to adjust duration</span>
+            <span>Drag handles to resize duration</span>
           </div>
+          {(draggedDeal || resizingDeal) && (
+            <div className="flex items-center gap-2 text-blue-400">
+              <ApperIcon name="MousePointer" size={16} />
+              <span>{draggedDeal ? 'Moving...' : 'Resizing...'}</span>
+            </div>
+          )}
         </div>
       </Card>
     </div>
