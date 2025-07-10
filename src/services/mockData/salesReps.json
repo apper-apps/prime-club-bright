@@ -1,0 +1,74 @@
+[
+  {
+    "Id": 1,
+    "name": "Sarah Johnson",
+    "leadsContacted": 145,
+    "meetingsBooked": 32,
+    "dealsClosed": 8,
+    "revenue": 450000,
+    "isHunterOfMonth": true
+  },
+  {
+    "Id": 2,
+    "name": "Mike Chen",
+    "leadsContacted": 128,
+    "meetingsBooked": 28,
+    "dealsClosed": 6,
+    "revenue": 380000,
+    "isHunterOfMonth": false
+  },
+  {
+    "Id": 3,
+    "name": "Lisa Park",
+    "leadsContacted": 112,
+    "meetingsBooked": 25,
+    "dealsClosed": 5,
+    "revenue": 325000,
+    "isHunterOfMonth": false
+  },
+  {
+    "Id": 4,
+    "name": "David Lee",
+    "leadsContacted": 98,
+    "meetingsBooked": 22,
+    "dealsClosed": 4,
+    "revenue": 275000,
+    "isHunterOfMonth": false
+  },
+  {
+    "Id": 5,
+    "name": "Rachel Smith",
+    "leadsContacted": 85,
+    "meetingsBooked": 18,
+    "dealsClosed": 3,
+    "revenue": 210000,
+    "isHunterOfMonth": false
+  },
+  {
+    "Id": 6,
+    "name": "James Wilson",
+    "leadsContacted": 76,
+    "meetingsBooked": 15,
+    "dealsClosed": 2,
+    "revenue": 165000,
+    "isHunterOfMonth": false
+  },
+  {
+    "Id": 7,
+    "name": "Emma Davis",
+    "leadsContacted": 63,
+    "meetingsBooked": 12,
+    "dealsClosed": 2,
+    "revenue": 145000,
+    "isHunterOfMonth": false
+  },
+  {
+    "Id": 8,
+    "name": "Alex Rodriguez",
+    "leadsContacted": 54,
+    "meetingsBooked": 10,
+    "dealsClosed": 1,
+    "revenue": 95000,
+    "isHunterOfMonth": false
+  }
+]
