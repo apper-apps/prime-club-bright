@@ -8,9 +8,10 @@
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
-  },
+},
   "dependencies": {
     "@reduxjs/toolkit": "2.7.0",
+    "redux": "^5.0.1",
     "apexcharts": "4.7.0",
     "date-fns": "4.1.0",
     "framer-motion": "10.16.4",
