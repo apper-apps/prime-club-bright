@@ -9,16 +9,16 @@ const Card = React.forwardRef(({
   className, 
   ...props 
 }, ref) => {
-  const baseStyles = "bg-slate-800 border border-slate-700 rounded-xl shadow-lg";
+const baseStyles = "bg-white border border-gray-200 rounded-xl shadow-lg";
   
   const variants = {
-    default: "bg-slate-800 border-slate-700",
-    gradient: "bg-gradient-to-br from-slate-800 to-slate-900 border-slate-600",
-    glass: "bg-slate-800/50 backdrop-blur-sm border-slate-600/50",
-    premium: "bg-gradient-to-br from-slate-800 via-slate-800 to-slate-900 border-slate-600 shadow-xl",
+    default: "bg-white border-gray-200",
+    gradient: "bg-gradient-to-br from-white to-gray-50 border-gray-300",
+    glass: "bg-white/80 backdrop-blur-sm border-gray-300/50",
+    premium: "bg-gradient-to-br from-white via-white to-gray-50 border-gray-300 shadow-xl",
   };
   
-  const hoverStyles = hoverable ? "transition-all duration-200 hover:scale-105 hover:shadow-xl hover:shadow-indigo-500/10 hover:border-indigo-500/50" : "";
+  const hoverStyles = hoverable ? "transition-all duration-200 hover:scale-105 hover:shadow-xl hover:shadow-teal-500/10 hover:border-teal-500/50" : "";
 
   const CardComponent = hoverable ? motion.div : "div";
   const motionProps = hoverable ? {

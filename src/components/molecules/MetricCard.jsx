@@ -37,7 +37,12 @@ const MetricCard = ({
     return () => clearTimeout(timer);
   }, [value, delay]);
 
-  const colorClasses = {
+const colorClasses = {
+    teal: "from-teal-500 to-cyan-500",
+    rose: "from-rose-500 to-pink-500",
+    violet: "from-violet-500 to-purple-500",
+    orange: "from-orange-500 to-amber-500",
+    sky: "from-sky-500 to-blue-500",
     indigo: "from-indigo-500 to-purple-500",
     emerald: "from-emerald-500 to-emerald-600",
     amber: "from-amber-500 to-amber-600",
@@ -46,6 +51,11 @@ const MetricCard = ({
   };
 
   const iconBgClasses = {
+    teal: "from-teal-500/10 to-cyan-500/10",
+    rose: "from-rose-500/10 to-pink-500/10",
+    violet: "from-violet-500/10 to-purple-500/10",
+    orange: "from-orange-500/10 to-amber-500/10",
+    sky: "from-sky-500/10 to-blue-500/10",
     indigo: "from-indigo-500/10 to-purple-500/10",
     emerald: "from-emerald-500/10 to-emerald-600/10",
     amber: "from-amber-500/10 to-amber-600/10",
@@ -73,8 +83,8 @@ const MetricCard = ({
           )}
         </div>
         
-        <div className="space-y-2">
-          <p className="text-slate-400 text-sm font-medium">{title}</p>
+<div className="space-y-2">
+          <p className="text-gray-600 text-sm font-medium">{title}</p>
           <motion.p
             className={`text-3xl font-bold bg-gradient-to-r ${colorClasses[color]} bg-clip-text text-transparent`}
             initial={{ scale: 0.5 }}

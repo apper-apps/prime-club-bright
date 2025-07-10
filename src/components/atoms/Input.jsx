@@ -11,7 +11,7 @@ const Input = React.forwardRef(({
   className,
   ...props 
 }, ref) => {
-  const baseStyles = "w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200";
+const baseStyles = "w-full px-4 py-3 bg-white border border-gray-300 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all duration-200";
   
   const errorStyles = error ? "border-red-500 focus:ring-red-500" : "";
   
@@ -21,7 +21,7 @@ const Input = React.forwardRef(({
     <div className="relative">
       {icon && (
         <div className={cn(
-          "absolute top-1/2 transform -translate-y-1/2 text-slate-400",
+"absolute top-1/2 transform -translate-y-1/2 text-gray-500",
           iconPosition === "left" ? "left-4" : "right-4"
         )}>
           <ApperIcon name={icon} size={18} />

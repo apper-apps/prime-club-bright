@@ -35,10 +35,10 @@ const Sidebar = ({ onClose }) => {
     },
   };
 
-  return (
-    <div className="h-full flex flex-col">
+return (
+    <div className="h-full flex flex-col bg-white">
       {/* Header */}
-      <div className="p-6 border-b border-slate-800">
+      <div className="p-6 border-b border-gray-200">
         <div className="flex items-center justify-between">
           <motion.div
             initial={{ scale: 0.8, opacity: 0 }}
@@ -46,14 +46,14 @@ const Sidebar = ({ onClose }) => {
             transition={{ duration: 0.5 }}
             className="flex items-center gap-3"
           >
-            <div className="w-8 h-8 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-lg flex items-center justify-center">
+            <div className="w-8 h-8 bg-gradient-to-r from-teal-500 to-cyan-500 rounded-lg flex items-center justify-center">
               <ApperIcon name="Zap" size={20} className="text-white" />
             </div>
             <div>
-              <h2 className="text-xl font-bold bg-gradient-to-r from-white to-slate-300 bg-clip-text text-transparent">
+              <h2 className="text-xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
                 Prime Club
               </h2>
-              <p className="text-xs text-slate-400">CRM System</p>
+              <p className="text-xs text-gray-600">CRM System</p>
             </div>
           </motion.div>
           
@@ -80,8 +80,8 @@ const Sidebar = ({ onClose }) => {
               className={({ isActive }) =>
                 `flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 group ${
                   isActive
-                    ? "bg-gradient-to-r from-indigo-500 to-purple-500 text-white shadow-lg"
-                    : "text-slate-400 hover:text-white hover:bg-slate-800"
+                    ? "bg-gradient-to-r from-teal-500 to-cyan-500 text-white shadow-lg"
+                    : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
                 }`
               }
             >
@@ -91,7 +91,7 @@ const Sidebar = ({ onClose }) => {
                     name={item.icon}
                     size={20}
                     className={`transition-all duration-200 ${
-                      isActive ? "text-white" : "text-slate-400 group-hover:text-white"
+                      isActive ? "text-white" : "text-gray-600 group-hover:text-gray-900"
                     }`}
                   />
                   <span className="font-medium">{item.label}</span>
@@ -110,13 +110,13 @@ const Sidebar = ({ onClose }) => {
       </motion.nav>
 
       {/* Footer */}
-      <div className="p-4 border-t border-slate-800">
-        <div className="bg-gradient-to-r from-slate-800 to-slate-700 rounded-lg p-4">
+      <div className="p-4 border-t border-gray-200">
+        <div className="bg-gradient-to-r from-gray-100 to-gray-200 rounded-lg p-4">
           <div className="flex items-center gap-3 mb-2">
-            <ApperIcon name="Star" size={16} className="text-yellow-400" />
-            <span className="text-sm font-medium text-white">Pro Tips</span>
+            <ApperIcon name="Star" size={16} className="text-yellow-500" />
+            <span className="text-sm font-medium text-gray-900">Pro Tips</span>
           </div>
-          <p className="text-xs text-slate-400">
+          <p className="text-xs text-gray-600">
             Use keyboard shortcuts to navigate faster through your pipeline!
           </p>
         </div>

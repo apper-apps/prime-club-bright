@@ -9,7 +9,7 @@ const Select = React.forwardRef(({
   className,
   ...props 
 }, ref) => {
-  const baseStyles = "w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 appearance-none";
+const baseStyles = "w-full px-4 py-3 bg-white border border-gray-300 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all duration-200 appearance-none";
   
   const errorStyles = error ? "border-red-500 focus:ring-red-500" : "";
 
@@ -34,7 +34,7 @@ const Select = React.forwardRef(({
           </option>
         ))}
       </select>
-      <div className="absolute right-4 top-1/2 transform -translate-y-1/2 text-slate-400 pointer-events-none">
+<div className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-500 pointer-events-none">
         <ApperIcon name="ChevronDown" size={18} />
       </div>
       {error && (

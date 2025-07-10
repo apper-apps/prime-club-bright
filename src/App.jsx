@@ -19,7 +19,7 @@ function App() {
           <Route path="leaderboard" element={<Leaderboard />} />
         </Route>
       </Routes>
-      <ToastContainer
+<ToastContainer
         position="top-right"
         autoClose={3000}
         hideProgressBar={false}
@@ -29,7 +29,7 @@ function App() {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        theme="dark"
+        theme="light"
         toastClassName="custom-toast"
         bodyClassName="custom-toast-body"
         progressClassName="custom-progress"

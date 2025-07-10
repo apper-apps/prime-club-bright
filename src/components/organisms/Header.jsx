@@ -23,12 +23,12 @@ const Header = ({ onMenuClick }) => {
     }
   };
 
-  return (
+return (
     <motion.header
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
-      className="bg-slate-900/80 backdrop-blur-sm border-b border-slate-800 px-4 py-4 lg:px-6"
+      className="bg-white/95 backdrop-blur-sm border-b border-gray-200 px-4 py-4 lg:px-6 shadow-sm"
     >
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
@@ -42,10 +42,10 @@ const Header = ({ onMenuClick }) => {
           </Button>
           
           <div>
-            <h1 className="text-2xl font-bold bg-gradient-to-r from-white to-slate-300 bg-clip-text text-transparent">
+            <h1 className="text-2xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
               {getPageTitle()}
             </h1>
-            <p className="text-slate-400 text-sm mt-1">
+            <p className="text-gray-600 text-sm mt-1">
               Welcome back to Prime Club CRM
             </p>
           </div>
@@ -60,7 +60,7 @@ const Header = ({ onMenuClick }) => {
             <ApperIcon name="Settings" size={20} />
           </Button>
           
-          <div className="h-8 w-8 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full flex items-center justify-center">
+          <div className="h-8 w-8 bg-gradient-to-r from-teal-500 to-cyan-500 rounded-full flex items-center justify-center">
             <ApperIcon name="User" size={16} className="text-white" />
           </div>
         </div>

@@ -7,10 +7,10 @@ import { motion } from "framer-motion";
 const Layout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  return (
-    <div className="min-h-screen bg-slate-950">
+return (
+    <div className="min-h-screen bg-gray-50">
       {/* Desktop Sidebar */}
-      <div className="hidden lg:block fixed inset-y-0 left-0 z-50 w-64 bg-slate-900 border-r border-slate-800">
+      <div className="hidden lg:block fixed inset-y-0 left-0 z-50 w-64 bg-white border-r border-gray-200 shadow-lg">
         <Sidebar />
       </div>
 
@@ -21,7 +21,7 @@ const Layout = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-slate-900/80 backdrop-blur-sm"
+            className="fixed inset-0 bg-gray-900/80 backdrop-blur-sm"
             onClick={() => setSidebarOpen(false)}
           />
           <motion.div
@@ -29,7 +29,7 @@ const Layout = () => {
             animate={{ x: 0 }}
             exit={{ x: "-100%" }}
             transition={{ type: "spring", damping: 25, stiffness: 200 }}
-            className="relative w-64 bg-slate-900 border-r border-slate-800 shadow-xl"
+            className="relative w-64 bg-white border-r border-gray-200 shadow-xl"
           >
             <Sidebar onClose={() => setSidebarOpen(false)} />
           </motion.div>
@@ -39,7 +39,7 @@ const Layout = () => {
       {/* Main Content */}
       <div className="lg:ml-64">
         <Header onMenuClick={() => setSidebarOpen(true)} />
-        <main className="min-h-screen bg-slate-950">
+        <main className="min-h-screen bg-gray-50">
           <Outlet />
         </main>
       </div>
